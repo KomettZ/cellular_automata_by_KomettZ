@@ -37,7 +37,7 @@ int curseurFPS;
 int curseurXFPS=116;
 int milieuFPS=116;
 int FPS;
-String[] textrules = {"Conway's Game Of Life","Ecosystem Simulation with food","Zone War","Political Assembly","Hypnosis","Forest Fire Simulation"};
+String[] textrules = {"Conway's Game Of Life","Ecosystem Simulation with food","Zone War","Political Assembly","Spirals","Forest Fire Simulation"};
 String textrulesTexted;
 boolean menuModeChoosing;
 int cells;
@@ -54,8 +54,8 @@ int nbcellsc4r2;
 int color0=white;
 int color1=light_green;
 int color2=red;
-int color3=green;
-int color4=purple;
+int color3=mazarine;
+int color4=black;
 
 int pop=2;
 
