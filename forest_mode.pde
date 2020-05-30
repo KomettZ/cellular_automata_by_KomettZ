@@ -1,10 +1,10 @@
-float probasvforest=0.35;
+float probasvforest=0.38;
 
 
 
 void rules_forest(int i, int j) {
   if (grid[i][j]==color1) {
-    if (nbcellulesr>0) {
+    if (nbcellsc2>0) {
       ngrid[i][j]=color2;
     }
   } else if (grid[i][j]==color2) {

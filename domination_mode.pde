@@ -4,9 +4,9 @@
 
 void rules_domination (int i, int j) {
   float r = random(1);
-  if (r <= float(nbcellulesr)/float(cells)) {
+  if (r <= float(nbcellsc2)/float(cells)) {
     ngrid[i][j]=color2;
-  } else if (r <= (float(nbcellulesr + nbcellulesb))/float(cells)) {
+  } else if (r <= (float(nbcellsc2 + nbcellsc3))/float(cells)) {
     ngrid[i][j]=color3;
   } else {
     ngrid[i][j]=color4;

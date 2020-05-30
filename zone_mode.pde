@@ -3,18 +3,18 @@
 
 
 void rules_zone (int i, int j) {
-  if (nbcellulesr > nbcellulesb && nbcellulesr > nbcellulesn) {
+  if (nbcellsc2 > nbcellsc3 && nbcellsc2 > nbcellsc4) {
     ngrid[i][j]=color2;
-  } else if (nbcellulesb > nbcellulesr && nbcellulesb > nbcellulesn) {
+  } else if (nbcellsc3 > nbcellsc2 && nbcellsc3 > nbcellsc4) {
     ngrid[i][j]=color3;
-  } else if (nbcellulesn > nbcellulesr && nbcellulesn > nbcellulesb) {
+  } else if (nbcellsc4 > nbcellsc2 && nbcellsc4 > nbcellsc3) {
     ngrid[i][j]=color4;
   } else {
     float r = random(1);
     int[] l = new int[3];
-    l[0]=nbcellulesr;
-    l[1]=nbcellulesb;
-    l[2]=nbcellulesn;
+    l[0]=nbcellsc2;
+    l[1]=nbcellsc3;
+    l[2]=nbcellsc4;
     l = sort(l);
     if (l[0] == l[1] && l[0] == l[2]) {
       if (r <= 1) {
@@ -26,17 +26,17 @@ void rules_zone (int i, int j) {
       }
     } else {
       if (r <= 0.5){
-        if (nbcellulesr == l[2]){
+        if (nbcellsc2 == l[2]){
           ngrid[i][j]=color2;
-        }else if (nbcellulesb == l[2]){
+        }else if (nbcellsc3 == l[2]){
           ngrid[i][j]=color3;
         }else{
           ngrid[i][j]=color4;
         }
       }else{
-         if (nbcellulesn == l[2]){
+         if (nbcellsc4 == l[2]){
           ngrid[i][j]=color4;
-        }else if (nbcellulesb == l[2]){
+        }else if (nbcellsc3 == l[2]){
           ngrid[i][j]=color3;
         }else{
           ngrid[i][j]=color2;
