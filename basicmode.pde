@@ -4,16 +4,16 @@ float probasrbase=0.5;
 
 
 void rulesbase(int i, int j){
-  if (grid[i][j]==color0){
-    if (nbcellsc2+nbcellsc4==3){
-      ngrid[i][j]=color2;
+  if (grid[i][j]==cellscolor[0][0]){
+    if (nbcells[2]+nbcells[1]==3){
+      ngrid[i][j]=cellscolor[2][0];
     }
   }
-  if (grid[i][j]==color2||grid[i][j]==color4){
-    if (nbcellsc2+nbcellsc4==2 || nbcellsc2+nbcellsc4==3){
-      ngrid[i][j]=color4;
+  if (grid[i][j]==cellscolor[2][0]||grid[i][j]==cellscolor[1][0]){
+    if (nbcells[2]+nbcells[1]==2 || nbcells[2]+nbcells[1]==3){
+      ngrid[i][j]=cellscolor[1][0];
     }else{
-      ngrid[i][j]=color0;
+      ngrid[i][j]=cellscolor[0][0];
     }
   }
 }
@@ -21,18 +21,18 @@ void rulesbase(int i, int j){
 void initbase (int i, int j){
   float r = random(1);
   if (r <= probasrbase) {
-    ngrid[i][j]=color2;
+    ngrid[i][j]=cellscolor[2][0];
   }else {
-    ngrid[i][j]=color0;
+    ngrid[i][j]=cellscolor[0][0];
   }
 }
 
 void clicbase(){
-  if (grid[mouseY/w][mouseX/w] ==color0) {
-      ngrid[mouseY/w][mouseX/w] = color2;
-      a=color2;
+  if (grid[mouseY/w][mouseX/w] ==cellscolor[0][0]) {
+      ngrid[mouseY/w][mouseX/w] = cellscolor[2][0];
+      a=cellscolor[2][0];
     } else{
-      ngrid[mouseY/w][mouseX/w] =color0;
-      a=color0;
+      ngrid[mouseY/w][mouseX/w] =cellscolor[0][0];
+      a=cellscolor[0][0];
     }
 }

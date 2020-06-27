@@ -2,197 +2,259 @@
 //initrules = 2 : alive cells + grass
 
 
-float probasc4ecosystem=0.05;
-float probasc2ecosystem=0.05;
-float probasc1ecosystem=0.4;
+int food=1;
+//food = 1 : with food
+//food = 2 : without food
 
-void rulesecosystem(int i, int j) {
-  if (pop==1) {
-    rulesecosystem_pop1(i, j);
-  } else if (pop==2) {
-    rulesecosystem_pop2(i, j);
+
+float[] probasEcosystem = {0, 0.4, 0.03, 0, 0.03, 0.03};
+float probasEcosystemLivingPop=1-probasEcosystem[1];
+
+void rulesEcosystem(int i, int j) {
+  if (food==1) {
+    if (pop==1) {
+      rulesEcosystem_withFood_pop1(i, j);
+    } else if (pop==2) {
+      rulesEcosystem_withFood_pop2(i, j);
+    } else {
+      rulesEcosystem_withFood_pop3(i, j);
+    }
+  } else {
   }
 }
 
 
-void rulesecosystem_pop1 (int i, int j) {
-  nbcellsc1=nbcellsc1+nbcellsc3;
-  if (grid[i][j]==color0) {               //pour une cellule morte
-    if (nbcellsc1>=3) {
-      if (nbcellsc2==2) {
-        ngrid[i][j]=color2;
+void rulesEcosystem_withFood_pop1 (int i, int j) {
+  nbcells[1]=nbcells[1]+nbcells[3];
+  if (grid[i][j]==cellscolor[0][0]) {               //pour une cellule morte
+    if (nbcells[1]>=3) {
+      if (nbcells[2]==2) {
+        ngrid[i][j]=cellscolor[2][0];
       } else {
-        if (nbcellsc2==0 && nbcellsc1>=4) {
-          ngrid[i][j]=color1;
+        if (nbcells[2]==0 && nbcells[1]>=4) {
+          ngrid[i][j]=cellscolor[1][0];
         }
       }
     }
-  } else if (grid[i][j]==color1) {        //pour une case d'herbe
-    if (nbcellsc1==8) {
-      ngrid[i][j]=color3;
+  } else if (grid[i][j]==cellscolor[1][0]) {        //pour une case d'herbe
+    if (nbcells[1]==8) {
+      ngrid[i][j]=cellscolor[3][0];
     }
-    if (nbcellsc2>=2) {
-      ngrid[i][j]=color0;
+    if (nbcells[2]>=2) {
+      ngrid[i][j]=cellscolor[0][0];
     }
-  } else if (grid[i][j]==color3) {      //pour une cellule d'arbre
-    if (nbcellsc2>=2) {
-      ngrid[i][j]=color1;
+  } else if (grid[i][j]==cellscolor[3][0]) {      //pour une cellule d'arbre
+    if (nbcells[2]>=2) {
+      ngrid[i][j]=cellscolor[1][0];
     }
   } else {                              //pour une cellule vivante
-    if (nbcellsc2==1 && nbcellsc1>=2) {
-      ngrid[i][j]=color2;
-    } else if (nbcellsc1>0) {
-      if (nbcellsc2==2 || nbcellsc2==3) {
-        ngrid[i][j]=color2;
+    if (nbcells[2]==1 && nbcells[1]>=2) {
+      ngrid[i][j]=cellscolor[2][0];
+    } else if (nbcells[1]>0) {
+      if (nbcells[2]==2 || nbcells[2]==3) {
+        ngrid[i][j]=cellscolor[2][0];
       } else {
-        ngrid[i][j]=color1;
+        ngrid[i][j]=cellscolor[1][0];
       }
     } else {
-      ngrid[i][j]=color1;
+      ngrid[i][j]=cellscolor[1][0];
     }
   }
 } 
 
-void rulesecosystem_pop2(int i, int j) {
-  nbcellsc1=nbcellsc1+nbcellsc3;
-  if (grid[i][j]==color0) {               //pour une cellule morte
-    if (nbcellsc1>=3) {
-      if (nbcellsc2+nbcellsc4==2) { //à voir
-        if (nbcellsc2>nbcellsc4) {
-          ngrid[i][j]=color2;
-        } else if (nbcellsc2<nbcellsc4) {
-          ngrid[i][j]=color4;
+void rulesEcosystem_withFood_pop2(int i, int j) {
+  nbcells[1]=nbcells[1]+nbcells[3];
+  if (grid[i][j]==cellscolor[0][0]) {               //pour une cellule morte
+    if (nbcells[1]>=3) {
+      if (nbcells[2]+nbcells[4]==2) { //à voir
+        if (nbcells[2]>nbcells[4]) {
+          ngrid[i][j]=cellscolor[2][0];
+        } else if (nbcells[2]<nbcells[4]) {
+          ngrid[i][j]=cellscolor[4][0];
         } else {
-          ngrid[i][j]=color1;
+          ngrid[i][j]=cellscolor[1][0];
         }
       } else {
-        if (nbcellsc2+nbcellsc4==0 && nbcellsc1>=4) {
-          ngrid[i][j]=color1;
+        if (nbcells[2]+nbcells[4]==0 && nbcells[1]>=4) {
+          ngrid[i][j]=cellscolor[1][0];
         }
       }
     }
-  } else if (grid[i][j]==color1) {        //pour une case d'herbe
-    if (nbcellsc1==8) {
-      ngrid[i][j]=color3;
+  } else if (grid[i][j]==cellscolor[1][0]) {        //pour une case d'herbe
+    if (nbcells[1]==8) {
+      ngrid[i][j]=cellscolor[3][0];
     }
-    if (nbcellsc2+nbcellsc4>=2) {
-      ngrid[i][j]=color0;
+    if (nbcells[2]+nbcells[4]>=2) {
+      ngrid[i][j]=cellscolor[0][0];
     }
-  } else if (grid[i][j]==color3) {      //pour une cellule d'arbre
-    if (nbcellsc2+nbcellsc4>=2) {
-      ngrid[i][j]=color1;
+  } else if (grid[i][j]==cellscolor[3][0]) {      //pour une cellule d'arbre
+    if (nbcells[2]+nbcells[4]>=2) {
+      ngrid[i][j]=cellscolor[1][0];
     }
-  } else if (grid[i][j]==color2) {                              //pour une cellule vivante de la pop 1
-    if (nbcellsc2>nbcellsc4) {
-      if (nbcellsc2==1 && nbcellsc1+nbcellsc4>=2) {
-        ngrid[i][j]=color2;
-      } else if (nbcellsc1+nbcellsc4>0) {
-        if (nbcellsc2==2 || nbcellsc2==3) {
-          ngrid[i][j]=color2;
+  } else if (grid[i][j]==cellscolor[2][0]) {                              //pour une cellule vivante de la pop 1
+    if (nbcells[2]>nbcells[4]) {
+      if (nbcells[2]==1 && nbcells[1]+nbcells[4]>=2) {
+        ngrid[i][j]=cellscolor[2][0];
+      } else if (nbcells[1]+nbcells[4]>0) {
+        if (nbcells[2]==2 || nbcells[2]==3) {
+          ngrid[i][j]=cellscolor[2][0];
         } else {
-          ngrid[i][j]=color1;
+          ngrid[i][j]=cellscolor[1][0];
         }
       } else {
-        ngrid[i][j]=color1;
+        ngrid[i][j]=cellscolor[1][0];
       }
     } else {
-      if (nbcellsc2==1 && nbcellsc1>=2) {
-        ngrid[i][j]=color2;
-      } else if (nbcellsc1>0) {
-        if (nbcellsc2==2 || nbcellsc2==3) {
-          ngrid[i][j]=color2;
+      if (nbcells[2]==1 && nbcells[1]>=2) {
+        ngrid[i][j]=cellscolor[2][0];
+      } else if (nbcells[1]>0) {
+        if (nbcells[2]==2 || nbcells[2]==3) {
+          ngrid[i][j]=cellscolor[2][0];
         } else {
-          ngrid[i][j]=color1;
+          ngrid[i][j]=cellscolor[1][0];
         }
       } else {
-        ngrid[i][j]=color1;
+        ngrid[i][j]=cellscolor[1][0];
       }
     }
   } else {                                                       //pour une cellule de la pop 2
-    if (nbcellsc4>nbcellsc2) {
-      if (nbcellsc4==1 && nbcellsc1+nbcellsc2>=2) {
-        ngrid[i][j]=color4;
-      } else if (nbcellsc1+nbcellsc2>0) {
-        if (nbcellsc4==2 || nbcellsc4==3) {
-          ngrid[i][j]=color4;
+    if (nbcells[4]>nbcells[2]) {
+      if (nbcells[4]==1 && nbcells[1]+nbcells[2]>=2) {
+        ngrid[i][j]=cellscolor[4][0];
+      } else if (nbcells[1]+nbcells[2]>0) {
+        if (nbcells[4]==2 || nbcells[4]==3) {
+          ngrid[i][j]=cellscolor[4][0];
         } else {
-          ngrid[i][j]=color1;
+          ngrid[i][j]=cellscolor[1][0];
         }
       } else {
-        ngrid[i][j]=color1;
+        ngrid[i][j]=cellscolor[1][0];
       }
     } else {
-      if (nbcellsc4==1 && nbcellsc1>=2) {
-        ngrid[i][j]=color4;
-      } else if (nbcellsc1>0) {
-        if (nbcellsc4==2 || nbcellsc4==3) {
-          ngrid[i][j]=color4;
+      if (nbcells[4]==1 && nbcells[1]>=2) {
+        ngrid[i][j]=cellscolor[4][0];
+      } else if (nbcells[1]>0) {
+        if (nbcells[4]==2 || nbcells[4]==3) {
+          ngrid[i][j]=cellscolor[4][0];
         } else {
-          ngrid[i][j]=color1;
+          ngrid[i][j]=cellscolor[1][0];
         }
       } else {
-        ngrid[i][j]=color1;
+        ngrid[i][j]=cellscolor[1][0];
       }
+    }
+  }
+}
+
+void rulesEcosystem_withFood_pop3(int i, int j) {
+  nbcells[1]=nbcells[1]+nbcells[3];
+  if (grid[i][j]==cellscolor[0][0]) {               //pour une cellule morte
+    if (nbcells[1]>=3) {
+      if (nbcells[2]+nbcells[4]+nbcells[5]==2) { //à voir
+        if (nbcells[2]>nbcells[4]+nbcells[5]) {
+          ngrid[i][j]=cellscolor[2][0];
+        } else if (nbcells[4]>nbcells[2]+nbcells[5]) {
+          ngrid[i][j]=cellscolor[4][0];
+        } else if (nbcells[5]>nbcells[2]+nbcells[4]) {
+          ngrid[i][j]=cellscolor[5][0];
+        } else {
+          ngrid[i][j]=cellscolor[1][0];
+        }
+      } else {
+        if (nbcells[2]+nbcells[4]+nbcells[5]==0 && nbcells[1]>=4) {
+          ngrid[i][j]=cellscolor[1][0];
+        }
+      }
+    }
+  } else if (grid[i][j]==cellscolor[1][0]) {        //pour une case d'herbe
+    if (nbcells[1]==8) {
+      ngrid[i][j]=cellscolor[3][0];
+    }
+    if (nbcells[2]+nbcells[4]+nbcells[5]>=2) {
+      ngrid[i][j]=cellscolor[0][0];
+    }
+  } else if (grid[i][j]==cellscolor[3][0]) {      //pour une cellule d'arbre
+    if (nbcells[2]+nbcells[4]+nbcells[5]>=2) {
+      ngrid[i][j]=cellscolor[1][0];
+    }
+  } else if (grid[i][j]==cellscolor[2][0]) {                              //pour une cellule vivante de la pop 1
+    if (nbcells[2]==1 && nbcells[1]>=2) {
+      ngrid[i][j]=cellscolor[2][0];
+    } else if (nbcells[1]>0) {
+      if (nbcells[2]==2 || nbcells[2]==3) {
+        ngrid[i][j]=cellscolor[2][0];
+      } else {
+        ngrid[i][j]=cellscolor[1][0];
+      }
+    } else {
+      ngrid[i][j]=cellscolor[1][0];
+    }
+    if (nbcells[4]>1) {
+      ngrid[i][j]=cellscolor[4][0];
+    }
+  } else if (grid[i][j]==cellscolor[4][0]) {                                                       //pour une cellule de la pop 2
+    if (nbcells[4]==1 && nbcells[1]>=2) {
+      ngrid[i][j]=cellscolor[4][0];
+    } else if (nbcells[1]>0) {
+      if (nbcells[4]==2 || nbcells[4]==3) {
+        ngrid[i][j]=cellscolor[4][0];
+      } else {
+        ngrid[i][j]=cellscolor[1][0];
+      }
+    } else {
+      ngrid[i][j]=cellscolor[1][0];
+    }
+    if (nbcells[5]>1) {
+      ngrid[i][j]=cellscolor[5][0];
+    }
+  } else {                                                                                       //pour une cellule de la pop 3
+    if (nbcells[5]==1 && nbcells[1]>=2) {
+      ngrid[i][j]=cellscolor[5][0];
+    } else if (nbcells[1]>0) {
+      if (nbcells[5]==2 || nbcells[5]==3) {
+        ngrid[i][j]=cellscolor[5][0];
+      } else {
+        ngrid[i][j]=cellscolor[1][0];
+      }
+    } else {
+      ngrid[i][j]=cellscolor[1][0];
+    }
+    if (nbcells[2]>1) {
+      ngrid[i][j]=cellscolor[2][0];
     }
   }
 }
 
 
 void initecosystem(int i, int j) {
+  ngrid[i][j]=cellscolor[0][0];
   float r = random(1);
-  if (pop==1) {
-    if (initrules==1) {
-      initecosystem_color1_color0(i, j, r);
+  initecosystem_final(i, j, r);
+}
+
+
+void initecosystem_final(int i, int j, float r) {
+  if (r <= probasEcosystem[2]+probasEcosystem[4]+probasEcosystem[5]+probasEcosystem[1]) {
+    if (r <= probasEcosystem[2]) {
+      ngrid[i][j]=cellscolor[2][0];
+    } else if (r <= probasEcosystem[2]+probasEcosystem[4]) {
+      if (pop>=2) {
+        ngrid[i][j]=cellscolor[4][0];
+      }
+    } else if (r <= probasEcosystem[2]+probasEcosystem[4]+probasEcosystem[5]) {
+      if (pop>=3) {
+        ngrid[i][j]=cellscolor[5][0];
+      }
     } else {
-      initecosystem_color1(i, j, r);
+      ngrid[i][j]=cellscolor[1][0];
     }
   } else {
-    if (initrules==1) {
-      initecosystem_pop2_color1_color2(i, j, r);
-    } else {
-      initecosystem_pop2_color1(i, j, r);
-    }
+    ngrid[i][j]=cellscolor[0][0];
   }
 }
 
-
-void initecosystem_color1_color0(int i, int j, float r) {
-  if (r <= probasc2ecosystem) {
-    ngrid[i][j]=color2;
-  } else if (r <= probasc2ecosystem+probasc1ecosystem) {
-    ngrid[i][j]=color1;
-  } else {
-    ngrid[i][j]=0;
-  }
-}
-void initecosystem_color1(int i, int j, float r) {
-  if (r <= probasc2ecosystem) {
-    ngrid[i][j]=color2;
-  } else {
-    ngrid[i][j]=color1;
-  }
-}
-
-void initecosystem_pop2_color1_color2(int i, int j, float r) {
-  if (r <= probasc2ecosystem) {
-    ngrid[i][j]=color2;
-  } else if (r <= probasc2ecosystem+probasc4ecosystem) {
-    ngrid[i][j]=color4;
-  } else if (r <= probasc2ecosystem+probasc1ecosystem) {
-    ngrid[i][j]=color1;
-  } else {
-    ngrid[i][j]=0;
-  }
-}
-
-void initecosystem_pop2_color1(int i, int j, float r) {
-  if (r <= probasc2ecosystem) {
-    ngrid[i][j]=color2;
-  } else if (r <= probasc2ecosystem+probasc4ecosystem) {
-    ngrid[i][j]=color4;
-  } else {
-    ngrid[i][j]=color1;
-  }
+void clearecosystem(int i, int j){
+  ngrid[i][j]=cellscolor[1][0];
 }
 
 void clicecosystem () {

@@ -3,22 +3,22 @@ float probasvforest=0.38;
 
 
 void rules_forest(int i, int j) {
-  if (grid[i][j]==color1) {
-    if (nbcellsc2>0) {
-      ngrid[i][j]=color2;
+  if (grid[i][j]==cellscolor[1][0]) {
+    if (nbcells[2]>0) {
+      ngrid[i][j]=cellscolor[2][0];
     }
-  } else if (grid[i][j]==color2) {
-    ngrid[i][j]=color4;
+  } else if (grid[i][j]==cellscolor[2][0]) {
+    ngrid[i][j]=cellscolor[4][0];
   }
 }
 void init_forest(int i, int j) {
   float r = random(1);
   if (r<=probasvforest) {
-    ngrid[i][j]=color1;
+    ngrid[i][j]=cellscolor[1][0];
   }else{
-    ngrid[i][j]=color0;
+    ngrid[i][j]=cellscolor[0][0];
   }
-  ngrid[taille/2][taille/2]=color2;
+  ngrid[taille/2][taille/2]=cellscolor[2][0];
 }
 
 

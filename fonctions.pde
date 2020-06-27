@@ -1,9 +1,8 @@
 void animation_torique(int i, int j) {
   cells=0;
-  nbcellsc1=0;
-  nbcellsc2=0;
-  nbcellsc3=0;
-  nbcellsc4=0;
+  for (int loop=1; loop<=5; loop++) {
+    nbcells[loop]=0;
+  }
   for (int ii=-1; ii<2; ii++) {
     int a=i+ii;
     if (a<0) {
@@ -21,25 +20,17 @@ void animation_torique(int i, int j) {
       if (ii!=0 || jj!=0) {
         if (ii>=-1 && ii<=1 && jj>=-1 && jj<=1) {
           cells++;
-          if (grid[a][b]==color1) {
-            nbcellsc1++;
-          } else if (grid[a][b]==color2) {
-            nbcellsc2++;
-          } else if (grid[a][b]==color3) {
-            nbcellsc3++;
-          } else if (grid[a][b]==color4) {
-            nbcellsc4++;
+          for (int loop=1; loop<=5; loop++) {
+            if (grid[a][b]==cellscolor[loop][0]) {
+              nbcells[loop]++;
+            }
           }
         } else {
           cellsr2++;
-          if (grid[i+ii][j+jj]==color1) {
-            nbcellsc1r2++;
-          } else if (grid[i+ii][j+jj]==color2) {
-            nbcellsc2r2++;
-          } else if (grid[i+ii][j+jj]==color3) {
-            nbcellsc3r2++;
-          } else if (grid[i+ii][j+jj]==color4) {
-            nbcellsc4r2++;
+          for (int loop=1; loop<=5; loop++) {
+            if (grid[a][b]==cellscolor[loop][0]) {
+              nbcellsr2[loop]++;
+            }
           }
         }
       }
@@ -54,35 +45,26 @@ void animation_torique(int i, int j) {
 
 void animation(int i, int j) {
   cells=0;
-  nbcellsc1=0;
-  nbcellsc2=0;
-  nbcellsc3=0;
-  nbcellsc4=0;
+  for (int loop=1; loop<=5; loop++) {
+    nbcells[loop]=0;
+  }
   for (int ii=-2; ii<3; ii++) {
     for (int jj=-2; jj<3; jj++) {
       if (i+ii>=0 && i+ii<taille && j+jj>=0 && j+jj<taille) {
         if (ii!=0 || jj!=0) {
           if (ii>=-1 && ii<=1 && jj>=-1 && jj<=1) {
             cells++;
-            if (grid[i+ii][j+jj]==color1) {
-              nbcellsc1++;
-            } else if (grid[i+ii][j+jj]==color2) {
-              nbcellsc2++;
-            } else if (grid[i+ii][j+jj]==color3) {
-              nbcellsc3++;
-            } else if (grid[i+ii][j+jj]==color4) {
-              nbcellsc4++;
+            for (int loop=1; loop<=5; loop++) {
+              if (grid[i+ii][j+jj]==cellscolor[loop][0]) {
+                nbcells[loop]++;
+              }
             }
           } else {
-            cellsr2++;
-            if (grid[i+ii][j+jj]==color1) {
-              nbcellsc1r2++;
-            } else if (grid[i+ii][j+jj]==color2) {
-              nbcellsc2r2++;
-            } else if (grid[i+ii][j+jj]==color3) {
-              nbcellsc3r2++;
-            } else if (grid[i+ii][j+jj]==color4) {
-              nbcellsc4r2++;
+            cells++;
+            for (int loop=1; loop<=5; loop++) {
+              if (grid[i+ii][j+jj]==cellscolor[loop][0]) {
+                nbcellsr2[loop]++;
+              }
             }
           }
         }
@@ -96,7 +78,7 @@ void rules (int i, int j) {
   if (rules==1) {
     rulesbase(i, j);
   } else if (rules==2) {
-    rulesecosystem(i, j);
+    rulesEcosystem(i, j);
   } else if (rules==3) {
     rules_zone(i, j);
   } else if (rules==4) {
@@ -144,6 +126,9 @@ void clic() {
 
 void clear(int i, int j) {
   ngrid[i][j]=0;
+  if (rules==2){
+    clearecosystem(i, j);
+  }
 }
 
 void ATH() {
@@ -159,16 +144,17 @@ void ATH() {
   text("FPS", 90, 843);
   text("Step", 313, 865);
   text("Menu", 532, 865);
-  Curseur CurseurFPS = new Curseur(870, 116, curseurXFPS);
+  Curseur CurseurFPS = new Curseur(curseurYFPS, milieuFPS, curseurXFPS, black);
   curseurFPS=curseurXFPS-milieuFPS+75;
 }
 
 
-class Curseur{
-  Curseur(int curseurY, int milieu, int curseurX){
-  fill(255);
-  ellipse(milieu, 870, 150, 10);
-  fill(250, 0, 0);
-  ellipse(curseurX, curseurY, 20, 20);
+class Curseur {
+  Curseur(int curseurY, int milieu, int curseurX, int[] couleur) {
+    fill(255, 255, 255);
+    ellipse(milieu, curseurY, 150, 10); 
+    fill(couleur[1], couleur[2], couleur[3]);
+    ellipse(curseurX, curseurY, 20, 20);
+    fill(0);
   }
 }
